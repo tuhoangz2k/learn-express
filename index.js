@@ -14,6 +14,6 @@ app.get('/', (req, res, next) => {
   res.sendFile(path.join(__dirname, 'home.html'))
 
 })
-app.listen(port,()=>{
+app.listen(process.env.PORT,()=>{
   console.log('listening on port');
 });
