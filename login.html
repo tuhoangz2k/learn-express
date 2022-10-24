@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <label for="user">User name</label>
+        <div><input type="text" placeholder="user name" id="user" name="username"></div>
+        <label for="password">password</label>
+        <div><input type="password" placeholder="password" id="password" name="password"></div>
+        <button class="login" onclick="login()">Login</button>
+    <script
+    src="https://code.jquery.com/jquery-3.6.1.js"
+    integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+    crossorigin="anonymous"></script>
+
+    <script>
+        const userInput=$('input[name="username"]')
+        const passwordInput=$('input[name="password"]')
+
+        function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  let expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+        function login(e){
+            $.ajax({
+                url:'/login',
+                method:"POST",
+                data:{
+                    username:userInput.val(),
+                    password:passwordInput.val()
+                }
+            }).then((data) =>{
+                setCookie('token',data.token,1);
+                console.log(data);
+            })
+            .catch((err)=>{
+
+            })
+        }
+    </script>
+</body>
+</html>

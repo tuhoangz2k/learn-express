@@ -5,10 +5,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./congkhai/home.css">
+    <link rel="stylesheet" href="./public/css/home.css">
 </head>
 <body>
     <h1>Helloo</h1>
     <img src="https://st.ntcdntempv3.com/data/comics/31/cuu-vi-ho-ly-mau.jpg" alt="">
+    <!-- <nav aria-label="Page navigation example"> -->
+        <!-- <ul class="pagination">
+          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+          <li class="page-item"><a class="page-link" onclick="LoadPage(1)" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" onclick="LoadPage(2)" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" onclick="LoadPage(3)" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" onclick="nextPage()" href="#">Next</a></li>
+        </ul>
+      </nav> -->
+
+      <nav id="paging">
+      </nav>
+    <div id="content"></div>
+
+   
+<script
+  src="https://code.jquery.com/jquery-3.6.1.min.js"
+  integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+  crossorigin="anonymous"></script>
+  
+  <script src="./public/js/main.js"></script>
+  <script>
+    $.ajax({
+      url: "/user?page=1",
+      type: "GET"
+    }).then((data)=>{console.log(data);}).catch((error)=>{})
+  </script>
 </body>
 </html>
