@@ -37,8 +37,9 @@
                     password:passwordInput.val()
                 }
             }).then((data) =>{
-                setCookie('token',data.token,1);
                 console.log(data);
+                setCookie('token',data.token,1);
+                window.location.href='/home'
             })
             .catch((err)=>{
 

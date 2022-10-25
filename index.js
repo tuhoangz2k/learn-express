@@ -24,7 +24,26 @@ app.use(function(req, res, next) {
 app.use('/public',express.static(path.join(__dirname, 'public')))
 
 
-
+app.get('/home',(req, res,next)=>{
+  var token=req.cookies.token;
+  try {
+  var decode=jwt.verify(token,'wiburach')
+  } catch (error) {
+    res.redirect('/login')
+  }
+  PersonModel.findById(decode._id)
+  .then((data)=>{
+    if(data.role==='manager'){
+     next();
+    }else{
+    return res.redirect('/login')
+    }
+  })
+  .catch((err)=>{res.json('err')})
+  
+} ,(req, res, next) => {
+  res.sendFile(path.join(__dirname, 'home.html'))
+})
 app.get('/login', (req, res, next) => {
   res.sendFile(path.join(__dirname, 'login.html'))
 })
@@ -97,6 +116,27 @@ function checkStudentPage(req, res, next){
       res.json('not permitson')
     }
     }
+
+app.patch('/edit', (req, res, next)=>{
+  const token=req.headers.cookie.split('=')[1]
+  try {
+  var decode=jwt.verify(token,'wiburach')
+  } catch (error) {
+    res.redirect('/login')
+  }
+  PersonModel.findById(decode._id)
+  .then((data)=>{
+    if(data.role==='manager'){
+     next();
+    }else{
+    return res.redirect('/login')
+    }
+  })
+  .catch((err)=>{res.json('err')})
+  next()
+},(req, res, next)=>{
+  res.json('update successful')
+})
 
 app.use('/task',checklogin,checkTask,(req, res, next)=>{
   const token=req.data;
